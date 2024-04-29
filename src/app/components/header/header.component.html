@@ -1,1 +1,23 @@
-<p>header works!</p>
+<div class="header" [class.is-mobile]="mobileQuery.matches" >
+      <mat-toolbar class="toolbar bg-primary-subtle" style="background-color: #0d6efd">
+        <button mat-icon-button (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h1 class="app-name">Convert Coins</h1>
+      </mat-toolbar>
+  
+      <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav style="background-color: #0d6efd" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+          <mat-nav-list>
+              <a mat-list-item routerLink=".">Home</a>
+              <a mat-list-item routerLink=".">Lista de Moedas</a>
+              <a mat-list-item routerLink=".">Conversor Monetário</a>
+              <a mat-list-item routerLink=".">Lista de COnversões</a>
+          </mat-nav-list>
+        </mat-sidenav>
+  
+        <mat-sidenav-content>
+
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+</div>
