@@ -9,15 +9,12 @@
       <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav style="background-color: #0d6efd" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <mat-nav-list>
-              <a mat-list-item routerLink=".">Home</a>
-              <a mat-list-item routerLink=".">Lista de Moedas</a>
-              <a mat-list-item routerLink=".">Conversor Monetário</a>
-              <a mat-list-item routerLink=".">Lista de COnversões</a>
+              <a mat-list-item routerLink="/home">Home</a>
+              <a mat-list-item routerLink="/lista-de-moedas">Lista de Moedas</a>
+              <a mat-list-item routerLink="/conversor-monetario">Conversor Monetário</a>
+              <a mat-list-item routerLink="/lista-de-conversoes">Lista de Conversões</a>
           </mat-nav-list>
         </mat-sidenav>
-  
-        <mat-sidenav-content>
-
-        </mat-sidenav-content>
       </mat-sidenav-container>
 </div>
+<router-outlet />
