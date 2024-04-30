@@ -6,7 +6,7 @@
         <h1 class="app-name">Convert Coins</h1>
       </mat-toolbar>
   
-      <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 5000 : 0">
         <mat-sidenav style="background-color: #0d6efd" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <mat-nav-list>
               <a mat-list-item routerLink="/home">Home</a>
@@ -15,6 +15,6 @@
               <a mat-list-item routerLink="/lista-de-conversoes">Lista de Conversões</a>
           </mat-nav-list>
         </mat-sidenav>
-      </mat-sidenav-container>
+      </mat-sidenav-container> 
 </div>
 <router-outlet />

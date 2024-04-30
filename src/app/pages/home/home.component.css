@@ -1,0 +1,18 @@
+.container{
+    margin-top: 100px;
+    color: #064098;
+}
+
+.card{
+    border-radius: 20px;
+    box-shadow: 10px 10px 28px -3px rgba(8, 14, 62, 0.26);;
+}
+
+.card-img{
+    border-radius: 20px 20px 0px 0px ;
+    filter: hue-rotate(180deg); 
+}
+
+.card-footer{
+    border-radius: 0px 0px 20px 20px;
+}
