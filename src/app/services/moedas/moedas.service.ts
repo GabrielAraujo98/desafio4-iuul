@@ -1,3 +1,4 @@
+import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,14 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 
-export class MoedasService {
+export class MoedasService{
   
   private _apiKey : string = 'be5308aec962e3f128a1e1b0';
   private _apiURL : string = 'https://v6.exchangerate-api.com/v6';
-  // private _http : any;
   
   constructor(private http: HttpClient){
-    this.http;
+    //this.http;
   }
   
   get apiURL(){

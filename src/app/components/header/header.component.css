@@ -20,8 +20,7 @@
   .sidenav-container {
     flex: 1;
   }
-  
-  .is-mobile .sidenav-container {
+
+   .is-mobile .sidenav-container {
     flex: 1 0 auto;
-  }
-  
+  } 
