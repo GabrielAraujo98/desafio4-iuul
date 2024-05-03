@@ -6,20 +6,20 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { AppComponent } from "../../app.component";
+import { ListaDeMoedasComponent } from "../../pages/lista-de-moedas/lista-de-moedas.component";
 
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+    selector: 'app-header',
+    standalone: true,
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, AppComponent, ListaDeMoedasComponent]
 })
 export class HeaderComponent{
 
   mobileQuery: MediaQueryList;
-
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
   private _mobileQueryListener: () => void;
 

@@ -3,10 +3,10 @@
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <h1 class="app-name">Convert Coins</h1>
+          <h1 routerLink="/home" class="app-name">Convert Coins</h1>
       </mat-toolbar>
   
-      <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 15000 : 15000">
+      <mat-sidenav-container style="background-color: #ffffff" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
         <mat-sidenav style="background-color: #0d6efd" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
           <mat-nav-list>
               <a mat-list-item routerLink="/home" (click)="snav.toggle()">Home</a>
@@ -15,6 +15,8 @@
               <a mat-list-item routerLink="/lista-de-conversoes" (click)="snav.toggle()">Lista de Conversões</a>
           </mat-nav-list>
         </mat-sidenav>
+        <mat-sidenav-content>
+          <router-outlet />
+        </mat-sidenav-content>
       </mat-sidenav-container> 
 </div>
-<router-outlet />

@@ -11,9 +11,7 @@ export class MoedasService{
   private _apiKey : string = 'be5308aec962e3f128a1e1b0';
   private _apiURL : string = 'https://v6.exchangerate-api.com/v6';
   
-  constructor(private http: HttpClient){
-    //this.http;
-  }
+  constructor(private http: HttpClient){}
   
   get apiURL(){
     return this._apiURL;
@@ -28,6 +26,6 @@ export class MoedasService{
   }
 
   getListaMoedas(){
-    return this.http.get(`${this._apiURL}/${this._apiKey}/latest/USD`)
+    return this.http.get<ListaMoedas>(`${this._apiURL}/${this._apiKey}/latest/USD`)
   }
 }
