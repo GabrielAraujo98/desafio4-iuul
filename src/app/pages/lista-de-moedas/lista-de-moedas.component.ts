@@ -1,32 +1,25 @@
+import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
 import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MoedasService } from "../../services/moedas/moedas.service";
 import { MatButtonModule } from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table'
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-lista-de-moedas',
   standalone: true,
-  imports: [HttpClientModule, MatButtonModule, MatTableModule],
+  imports: [HttpClientModule, MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule],
   templateUrl: './lista-de-moedas.component.html',
   styleUrl: './lista-de-moedas.component.css'
 })
-export class ListaDeMoedasComponent implements OnInit{
+export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
 
-    moedas: any[] = [];
-    
-    ngOnInit() {
-      this.moedasService.getListaMoedas().subscribe(dados =>{
-        console.log(dados);
-        this._listaMoedas.conversion_rates = dados.conversion_rates;
-        // this.moedas.push(dados.conversion_rates)
-        // console.log(this.moedas);
-        this.listarMoedas();
-      });
-      
-    }
+    private _moedas: string[] = [];
+    private _valor: number[] = [];
+    private _tabelaMoedas: TabelasMoedas[] = [];
     
     private _listaMoedas : ListaMoedas = {
       "result": "success",
@@ -38,31 +31,46 @@ export class ListaDeMoedasComponent implements OnInit{
       "conversion_rates": {}
     };
 
+    displayedColumns: string[] = ['moeda', 'valor'];
+    dataSource: MatTableDataSource<TabelasMoedas, MatPaginator>;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
     
-    constructor(private moedasService: MoedasService){}
+    ngAfterViewInit() {
+      setTimeout(() => {this.dataSource.paginator = this.paginator}, 1000);
+      console.log("oi");
+    }
     
-
     get listaMoedas(){
       return this._listaMoedas;
     }
 
-    listarMoedas(){
-      var stringDaLista = JSON.stringify(this._listaMoedas.conversion_rates);
-      var listaLimpa = this.filtrarLetras(stringDaLista, [`"`, `{`, `}`]);
-      var listaBruta = listaLimpa.split(",");
-      var arrayDeMoedas = [];
-      for(var i = 0; i < listaBruta.length; i++){
-        arrayDeMoedas.push(listaBruta[i].split(':'))
-      }
-      this.moedas = arrayDeMoedas
-      console.log(this.moedas);
-    }
-
-    filtrarLetras(str: string, letrasRemover: any){
-      letrasRemover.forEach((letra : any) => {
-        str = str.replaceAll(letra, '')
-      });
-      return str;
+    get tabelaMoedas(){
+      return this._tabelaMoedas;
     }
     
+    ngOnInit() {
+      
+      this.moedasService.getListaMoedas().subscribe(dados =>{
+        this._listaMoedas.conversion_rates = dados.conversion_rates;
+        
+        this.dataSource = new MatTableDataSource<TabelasMoedas>(this._tabelaMoedas);
+        
+
+        this._moedas = Object.keys(this._listaMoedas.conversion_rates);
+        this._valor = Object.values(this._listaMoedas.conversion_rates);
+  
+        this.criarObjetoDaTabela(this._moedas, this._valor);
+        console.log("oi, Tudo bem?");
+      });
+
+      
+    }
+    
+    constructor(private moedasService: MoedasService){}
+    
+    criarObjetoDaTabela(chave: string[], valor: number[]){
+      for(var m = 0; m < this._moedas.length; m++){
+        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
+      }
+    }
 }

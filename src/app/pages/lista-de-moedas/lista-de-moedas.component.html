@@ -1,20 +1,20 @@
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <table class="table lista">
-                    @for (item of this.moedas; track item){
-                        <tbody>
-                            <tr>
-                                <td>
-                                    {{item[0]}}
-                                </td>
-                                <td>
-                                    {{item[1]}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    }
-            </table>
-        </div>
+<div class="container tabela">
+    <div class="card tabela">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabela">
+
+            <ng-container matColumnDef="moeda" class="tabela">
+                <th mat-header-cell *matHeaderCellDef class="tabela"> Moeda </th>
+                <td mat-cell *matCellDef="let element" class="tabela"> {{element.moeda}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="valor" class="tabela">
+                <th mat-header-cell *matHeaderCellDef class="tabela"> Valor </th>
+                <td mat-cell *matCellDef="let element" class="tabela"> {{element.valor}} </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="tabela"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tabela"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[20, 60, 162]" showFirstLastButtons aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
     </div>
 </div>
