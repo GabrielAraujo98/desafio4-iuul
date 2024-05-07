@@ -13,6 +13,13 @@
     align-items: flex-start;
 }
 mat-form-field{
-    
     margin: 0 25px;
+}
+
+.botao{
+    background-color: #064098;
+    color: #fff;
+    border-radius: 20px;
+    max-width: 250px;
+    margin: auto;
 }
