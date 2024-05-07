@@ -1,11 +1,11 @@
-import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
-import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MoedasService } from "../../services/moedas/moedas.service";
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MoedasService } from "../../services/moedas/moedas.service";
+import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
+import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
 
 
 @Component({

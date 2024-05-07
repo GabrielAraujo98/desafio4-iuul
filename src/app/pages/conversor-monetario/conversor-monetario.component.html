@@ -1,1 +1,26 @@
-<p>conversor-monetario works!</p>
+<div class="container tabela">
+    <div class="card tabela">
+        <form class="form">
+            <mat-form-field floatLabel="always">
+                <mat-label>Escolha a Moeda Base</mat-label>
+                <mat-select required>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field floatLabel="always">
+                <mat-label>Escolha a Moeda Alvo</mat-label>
+                <mat-select required>
+                    <mat-option value="one">First option</mat-option>
+                    <mat-option value="two">Second option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field floatLabel="always">
+                <mat-label>Valor</mat-label>
+                <input matInput type="number" class="example-right-align" placeholder="0">
+                <span matTextPrefix>$&nbsp;</span>
+                <span matTextSuffix>.00</span>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
