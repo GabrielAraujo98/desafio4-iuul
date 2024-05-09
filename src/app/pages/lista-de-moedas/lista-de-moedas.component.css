@@ -5,7 +5,6 @@
     margin-top: 44px;
     color: #064098;
     margin-bottom: 44px;
-    border-radius: 20px;
 }
 
 .card{
@@ -14,17 +13,16 @@
 }
 
 .card-footer{
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 0px 0px 0px 0px;
 }
 
 .tabela{
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 0px 20px 0px 0px;
     background-color: #fff;
     color: #064098;
 }
 
 .pagination{
-    border-radius: 0px 0px 20px 20px;
-    background-color: #064098;
-    color: #fff;
+    border-radius: 0px 0px 0px 0px;
+    color: #064098;
 }

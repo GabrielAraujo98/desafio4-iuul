@@ -1,29 +1,55 @@
 
 .container{
-    margin-top: 100px;
+    margin: auto;
     z-index: 0;
     color: #000;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .form{
     background-color: #fff;
     color: #000;
     margin: auto;
-    display: flex;
-    align-items: flex-start;
 }
+
+.formulario{
+    width: 500px;
+}
+
 mat-form-field{
     margin: 0 25px;
 }
 
 .botao{
+    margin: auto;
     background-color: #064098;
     color: #fff;
-    border-radius: 20px;
     max-width: 250px;
-    margin: auto;
 }
 
-.inputs{
-    color: #000 !important;
+.resultado{
+    margin-top: 20px;
+}
+
+.img{
+    max-width: 500px;
+}
+
+.is-mobile .container {
+    margin-top: 15px;
+    flex-direction: column;
+    flex: 1 0 auto;
+    padding-bottom: 50px;
+}
+
+.is-mobile .img{
+    max-width: 200px;
+    margin: auto;
 }

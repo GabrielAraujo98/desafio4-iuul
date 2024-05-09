@@ -1,6 +1,7 @@
-<div class="container tabela">
-    <div class="card tabela">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 tabela">
+<div class="container tabela" [class.is-mobile]="mobileQuery.matches">
+    <div class="tabela">
+    <div class="card">
+        <table mat-table [dataSource]="dataSource" class="tabela">
 
             <ng-container matColumnDef="moeda" class="tabela">
                 <th mat-header-cell *matHeaderCellDef class="tabela"> Moeda </th>
@@ -15,6 +16,7 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="tabela"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tabela"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[20, 60, 162]" showFirstLastButtons aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 15, 30]" [showFirstLastButtons]="mobileQuery.matches ? false : true" aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
+    </div>
     </div>
 </div>

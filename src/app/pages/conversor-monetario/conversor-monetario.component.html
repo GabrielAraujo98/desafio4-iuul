@@ -1,32 +1,40 @@
-<div class="container tabela">
-    <div class="card tabela">
-        <form class="form">
-            <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Base">
-                <mat-label>Escolha a Moeda Base</mat-label>
-                <mat-select required (selectionChange)="atualizarBase($event.value)">
-                    @for(moeda of this.moedasService.moedas; track moeda){
-                        <mat-option [value]="moeda" >{{moeda}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Alvo">
-                <mat-label>Escolha a Moeda Alvo</mat-label>
-                <mat-select required (selectionChange)="atualizarAlvo($event.value)">
-                    @for(moeda of this.moedasService.moedas; track moeda){
-                        <mat-option [value]="moeda">{{moeda}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Valor">
-                <mat-label>Defina o Valor</mat-label>
-                <input #valorComparar matInput type="number" placeholder="0" (blur)="atualizarValor(valorComparar.value)"/>
-                <span matTextPrefix>$&nbsp;</span>
-                <span matTextSuffix>.00</span>
-            </mat-form-field>
-        </form>
-        <button mat-button (click)="converterValores($event)" class="btn botao">Converter</button>
-        <div>
-            <h1>{{this.conversorMoedasService.resultado}}</h1>
+<div [class.is-mobile]="mobileQuery.matches">
+    <div class="container">
+        <img class="img" src="./assets/img/5903.jpg" alt="Imagem de diversas notas de dinheiro.">
+        <div class="formulario">
+            <h2>Conversor Monetário</h2>
+            <form class="form">
+                <div>
+                    <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Base">
+                        <mat-label>Escolha a Moeda Base</mat-label>
+                        <mat-select required (selectionChange)="atualizarBase($event.value)">
+                            @for(moeda of this.moedasService.moedas; track moeda){
+                                <mat-option [value]="moeda" >{{moeda}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Alvo">
+                    <mat-label>Escolha a Moeda Alvo</mat-label>
+                    <mat-select required (selectionChange)="atualizarAlvo($event.value)">
+                        @for(moeda of this.moedasService.moedas; track moeda){
+                            <mat-option [value]="moeda">{{moeda}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div>
+                <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Valor">
+                    <mat-label>Defina o Valor</mat-label>
+                    <input #valorComparar matInput type="number" placeholder="0" (blur)="atualizarValor(valorComparar.value)"/>
+                </mat-form-field>
+                </div>
+            </form>
+            <button mat-button (click)="converterValores($event)" class="btn botao">Converter</button>
+            <div class="resultado">
+                <p>O resultado da conversão de {{valor}} {{alvo}} para {{base}} é de <strong>{{this.conversorMoedasService.resultado}}</strong></p>
+            </div>
         </div>
     </div>
 </div>

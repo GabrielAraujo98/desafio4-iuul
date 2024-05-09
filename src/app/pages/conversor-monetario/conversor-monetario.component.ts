@@ -1,4 +1,4 @@
-import { Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { ConversorMoedasService } from "../../services/conversor-moedas/conversor-moedas.service";
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
@@ -7,6 +7,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import { ListaDeMoedasComponent } from "../lista-de-moedas/lista-de-moedas.component";
 import { MoedasService } from '../../services/moedas/moedas.service';
 import { ListaMoedas } from '../../interface/lista-moedas/lista-moedas';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 
 @Component({
@@ -29,7 +30,15 @@ export class ConversorMonetarioComponent implements OnInit{
     
    }
 
-  constructor(public conversorMoedasService: ConversorMoedasService, public moedasService : MoedasService){}
+  mobileQuery: MediaQueryList;
+
+  private _mobileQueryListener: () => void;
+
+  constructor(public conversorMoedasService: ConversorMoedasService, public moedasService : MoedasService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 1000px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
   converterValores(e: any){
     e.stopPropagation();

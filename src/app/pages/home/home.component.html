@@ -1,15 +1,17 @@
-<div class="container">
-    <div class="card">
-        <img class="card-img" src="./assets/img/currency-converter.jpg" alt="Imagem de diversas notas de dinheiro.">
-        <div class="card-header">
-            <h2 class="title">Seja bem-vindo!</h2>
-        </div>
-        <div class="card-body">
-            <h2 class="title">Este é o seu conversor monetário favorito!</h2>
-            <p>Este projeto foi desenvolvido como parte do projeto de residência da iuUL.</p>
-        </div>
-        <div class="card-footer">
-            <p>Utiliza a API: <a href="https://www.exchangerate-api.com/" ><strong>https://www.exchangerate-api.com/</strong></a></p>
+<div [class.is-mobile]="mobileQuery.matches">
+    <div class="container" >
+        <img class="img" src="./assets/img/8711567.jpg" alt="Imagem de diversas notas de dinheiro.">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="title">Seja bem-vindo!</h2>
+            </div>
+            <div class="card-body">
+                <h2 class="title">Este é o seu conversor monetário favorito!</h2>
+                <p>Este projeto foi desenvolvido como parte do projeto de residência da iuUL.</p>
+            </div>
+            <div class="card-footer">
+                <p>Utiliza a API: <a href="https://www.exchangerate-api.com/" ><strong>https://www.exchangerate-api.com/</strong></a></p>
+            </div>
         </div>
     </div>
 </div>

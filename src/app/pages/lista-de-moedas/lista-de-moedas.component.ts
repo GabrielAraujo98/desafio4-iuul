@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -6,6 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MoedasService } from "../../services/moedas/moedas.service";
 import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
 import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 
 @Component({
@@ -33,6 +34,14 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
         this.dataSource = new MatTableDataSource<TabelasMoedas>(this.moedasService.tabelaMoedas);
       
     }
-    
-    constructor(private moedasService: MoedasService){}
+
+    mobileQuery: MediaQueryList;
+
+  private _mobileQueryListener: () => void;
+
+  constructor(private moedasService: MoedasService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 1000px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 }
