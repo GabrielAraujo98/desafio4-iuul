@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { ConversorMoedasService } from "../../services/conversor-moedas/conversor-moedas.service";
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -34,7 +33,7 @@ export class ConversorMonetarioComponent implements OnInit{
 
   private _mobileQueryListener: () => void;
 
-  constructor(public conversorMoedasService: ConversorMoedasService, public moedasService : MoedasService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(public moedasService : MoedasService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 1000px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -43,7 +42,7 @@ export class ConversorMonetarioComponent implements OnInit{
   converterValores(e: any){
     e.stopPropagation();
     e.preventDefault();
-    this.conversorMoedasService.resultadoDaConversao(this.base, this.alvo, this.valor);
+    this.moedasService.resultadoDaConversao(this.base, this.alvo, this.valor);
   }
 
   atualizarBase(value : string){

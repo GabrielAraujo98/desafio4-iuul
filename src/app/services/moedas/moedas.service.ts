@@ -2,6 +2,9 @@ import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TabelasMoedas } from '../../interface/tabelas-moedas/tabelas-moedas';
+import { Observable } from 'rxjs';
+import { MoedasConversao } from "../../interface/moedas-conversao/moedas-conversao";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -9,25 +12,14 @@ import { TabelasMoedas } from '../../interface/tabelas-moedas/tabelas-moedas';
 
 export class MoedasService{
   
-  private _apiKey : string = 'be5308aec962e3f128a1e1b0';
-  private _apiURL : string = 'https://v6.exchangerate-api.com/v6';
-  
   constructor(private _http: HttpClient){}
-  
-  get apiURL(){
-    return this._apiURL;
-  }
-
-  get apiKey(){
-    return this._apiKey;
-  } 
   
   get http(){
     return this._http;
   }
 
-  getListaMoedas(){
-    return this.http.get<ListaMoedas>(`${this._apiURL}/${this._apiKey}/latest/USD`)
+  getListaMoedas() : Observable<ListaMoedas>{
+    return this.http.get<ListaMoedas>(`${environment.url}/${environment.apiKey}/latest/USD`)
   }
 
     private _moedas: string[] = [];
@@ -65,7 +57,7 @@ export class MoedasService{
     definirTabela() {
       
       this.getListaMoedas().subscribe(dados =>{
-        this._listaMoedas.conversion_rates = dados.conversion_rates;
+        this._listaMoedas = dados;
 
         this._moedas = Object.keys(this._listaMoedas.conversion_rates);
         this._valor = Object.values(this._listaMoedas.conversion_rates);
@@ -82,4 +74,41 @@ export class MoedasService{
         this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
       }
     }
+
+  //Serviço de Conversão
+  private _moedaBase: string = "";
+  private _moedaAlvo: string = "";
+  private _valorParaConverter: number = 0;
+  private _resultado: number = 0;
+
+  get moedaBase(){
+    return this._moedaBase;
+  }
+
+  get moedaAlvo(){
+    return this._moedaAlvo
+  }
+
+  get valorParaConverter(){
+    return this._valorParaConverter;
+  }
+
+  get resultado(){
+    return this._resultado;
+  }
+
+
+  getConversaoMoedas(base: string, alvo: string, quantidade: number): Observable<MoedasConversao>{
+    this._moedaBase = base;
+    this._moedaAlvo = alvo;
+    this._valorParaConverter = quantidade;
+    return this.http.get<MoedasConversao>(`${environment.url}/${environment.apiKey}/pair/${base}/${alvo}/${quantidade}`)
+  }
+
+  resultadoDaConversao(base: string, alvo: string, quantidade: number){
+    this.getConversaoMoedas(base, alvo, quantidade).subscribe(dados => {
+      this._resultado = dados.conversion_result;
+      console.log(this._resultado)
+    })
+  }
 }

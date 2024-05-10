@@ -9,7 +9,7 @@
                         <mat-label>Escolha a Moeda Base</mat-label>
                         <mat-select required (selectionChange)="atualizarBase($event.value)">
                             @for(moeda of this.moedasService.moedas; track moeda){
-                                <mat-option [value]="moeda" >{{moeda}}</mat-option>
+                                <mat-option [value]="moeda">{{moeda}}</mat-option>
                             }
                         </mat-select>
                     </mat-form-field>
@@ -33,7 +33,7 @@
             </form>
             <button mat-button (click)="converterValores($event)" class="btn botao">Converter</button>
             <div class="resultado">
-                <p>O resultado da conversão de {{valor}} {{alvo}} para {{base}} é de <strong>{{this.conversorMoedasService.resultado}}</strong></p>
+                <p>O resultado da conversão de {{valor}} {{alvo}} para <br/> {{base}} é de <strong>{{this.moedasService.resultado}}</strong></p>
             </div>
         </div>
     </div>
