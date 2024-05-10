@@ -8,7 +8,7 @@
                     <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Base">
                         <mat-label>Escolha a Moeda Base</mat-label>
                         <mat-select required (selectionChange)="atualizarBase($event.value)">
-                            @for(moeda of this.moedasService.moedas; track moeda){
+                            @for(moeda of this.moedas; track moeda){
                                 <mat-option [value]="moeda">{{moeda}}</mat-option>
                             }
                         </mat-select>
@@ -18,7 +18,7 @@
                 <mat-form-field floatLabel="always" appearance="outline" class="inputs" placeholder="Alvo">
                     <mat-label>Escolha a Moeda Alvo</mat-label>
                     <mat-select required (selectionChange)="atualizarAlvo($event.value)">
-                        @for(moeda of this.moedasService.moedas; track moeda){
+                        @for(moeda of this.moedas; track moeda){
                             <mat-option [value]="moeda">{{moeda}}</mat-option>
                         }
                     </mat-select>

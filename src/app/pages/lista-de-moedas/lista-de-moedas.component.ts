@@ -17,22 +17,48 @@ import {MediaMatcher} from '@angular/cdk/layout';
   styleUrl: './lista-de-moedas.component.css'
 })
 export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
+  
+  private _listaMoedas: ListaMoedas;
+  private _moedas: string[];
+  private _rate: number[];
+  private _tabelaMoedas: TabelasMoedas[] = [];
 
-    displayedColumns: string[] = ['moeda', 'valor'];
-    dataSource: MatTableDataSource<TabelasMoedas, MatPaginator>;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    
-    ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator
-      console.log("oi");
-    }
+  get tabelaMoedas(){
+    return this._tabelaMoedas;
+  }
+  get moedas(){
+    return this._moedas
+  }
+
+  displayedColumns: string[] = ['moeda', 'valor'];
+  dataSource: MatTableDataSource<TabelasMoedas, MatPaginator>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
     
     ngOnInit() {
       
-        this.moedasService.definirTabela();
+        this.moedasService.definirTabela().subscribe(dados =>{
+          this.moedasService.listaMoedas = dados;
+          this._listaMoedas = this.moedasService.listaMoedas
+    
+          this._moedas = Object.keys(this._listaMoedas.conversion_rates);
+          this._rate = Object.values(this._listaMoedas.conversion_rates);
+    
+          this.criarObjetoDaTabela(this._moedas, this._rate);
+          this.dataSource = new MatTableDataSource<TabelasMoedas>(this._tabelaMoedas);
+          this.dataSource.paginator = this.paginator;
+          console.log("OnInit");
+        });
+    }
 
-        this.dataSource = new MatTableDataSource<TabelasMoedas>(this.moedasService.tabelaMoedas);
-      
+    ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator
+      console.log("ngAfterViewInit");
+    }
+
+    criarObjetoDaTabela(chave: string[], valor: number[]){
+      for(var m = 0; m < this._moedas.length; m++){
+        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
+      }
     }
 
     mobileQuery: MediaQueryList;

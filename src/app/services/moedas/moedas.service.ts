@@ -13,7 +13,7 @@ import { environment } from "../../../environments/environment";
 export class MoedasService{
   
   constructor(private _http: HttpClient){}
-  
+
   get http(){
     return this._http;
   }
@@ -53,26 +53,15 @@ export class MoedasService{
     get valor(){
       return this._valor;
     }
+
+    set listaMoedas(value : ListaMoedas){
+      this._listaMoedas = value;
+    }
     
     definirTabela() {
       
-      this.getListaMoedas().subscribe(dados =>{
-        this._listaMoedas = dados;
-
-        this._moedas = Object.keys(this._listaMoedas.conversion_rates);
-        this._valor = Object.values(this._listaMoedas.conversion_rates);
-  
-        this.criarObjetoDaTabela(this._moedas, this._valor);
-        console.log("oi, Tudo bem?");
-      });
-
+      return this.getListaMoedas()
       
-    }
-
-    criarObjetoDaTabela(chave: string[], valor: number[]){
-      for(var m = 0; m < this._moedas.length; m++){
-        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
-      }
     }
 
   //Serviço de Conversão

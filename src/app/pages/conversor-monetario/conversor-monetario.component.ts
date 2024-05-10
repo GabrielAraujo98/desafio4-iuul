@@ -7,6 +7,7 @@ import { ListaDeMoedasComponent } from "../lista-de-moedas/lista-de-moedas.compo
 import { MoedasService } from '../../services/moedas/moedas.service';
 import { ListaMoedas } from '../../interface/lista-moedas/lista-moedas';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { TabelasMoedas } from '../../interface/tabelas-moedas/tabelas-moedas';
 
 
 @Component({
@@ -22,11 +23,20 @@ export class ConversorMonetarioComponent implements OnInit{
   public base: string;
   public alvo: string;
   public valor: number;
+  public listaMoedas : ListaMoedas;
+  moedas: string[] = [];
 
    ngOnInit() {
-    
-    this.moedasService.definirTabela();
-    
+
+    if(this.moedas[0] === "USD"){
+      console.log(this.moedas);
+    }else{
+      this.moedasService.definirTabela().subscribe(dados =>{
+        this.listaMoedas = dados;
+        this.moedas = Object.keys(this.listaMoedas.conversion_rates);
+        console.log('deu certo');
+      });
+    }   
    }
 
   mobileQuery: MediaQueryList;
