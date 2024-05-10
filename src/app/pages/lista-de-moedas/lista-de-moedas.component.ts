@@ -34,34 +34,46 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
   dataSource: MatTableDataSource<TabelasMoedas, MatPaginator>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
     
-    ngOnInit() {
-      
-        this.moedasService.definirTabela().subscribe(dados =>{
-          this.moedasService.listaMoedas = dados;
-          this._listaMoedas = this.moedasService.listaMoedas
+  ngOnInit() {
     
-          this._moedas = Object.keys(this._listaMoedas.conversion_rates);
-          this._rate = Object.values(this._listaMoedas.conversion_rates);
-    
-          this.criarObjetoDaTabela(this._moedas, this._rate);
-          this.dataSource = new MatTableDataSource<TabelasMoedas>(this._tabelaMoedas);
-          this.dataSource.paginator = this.paginator;
-          console.log("OnInit");
-        });
-    }
+    this.moedasService.getListaMoedas().subscribe(dados =>{
+      this._listaMoedas = dados;
 
-    ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator
-      console.log("ngAfterViewInit");
-    }
+      this._moedas = Object.keys(this._listaMoedas.conversion_rates);
+      this._rate = Object.values(this._listaMoedas.conversion_rates);
 
-    criarObjetoDaTabela(chave: string[], valor: number[]){
+      this.criarObjetoDaTabela(this._moedas, this._rate);
+      this.dataSource = new MatTableDataSource<TabelasMoedas>(this._tabelaMoedas);
+      this.dataSource.paginator = this.paginator;
+      console.log("OnInit");
+    });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator
+    console.log("ngAfterViewInit");
+  }
+
+  criarObjetoDaTabela(chave: string[], valor: number[]){
+    var tabela : TabelasMoedas[] = [];
+    if(this._tabelaMoedas.length <= 1){
       for(var m = 0; m < this._moedas.length; m++){
         this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
       }
+      tabela = this._tabelaMoedas;
+      console.log("this._tabelaMoedas nao tinha informacao");
+    }else{
+      this._tabelaMoedas = [];
+      for(var m = 0; m < this._moedas.length; m++){
+        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
+      }
+      tabela = this._tabelaMoedas
+      console.log("this._tabelaMoedas ja tinha informacao");
     }
+    return tabela;
+  }
 
-    mobileQuery: MediaQueryList;
+  mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
 

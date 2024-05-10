@@ -31,7 +31,7 @@ export class ConversorMonetarioComponent implements OnInit{
     if(this.moedas[0] === "USD"){
       console.log(this.moedas);
     }else{
-      this.moedasService.definirTabela().subscribe(dados =>{
+      this.moedasService.getListaMoedas().subscribe(dados =>{
         this.listaMoedas = dados;
         this.moedas = Object.keys(this.listaMoedas.conversion_rates);
         console.log('deu certo');

@@ -57,12 +57,6 @@ export class MoedasService{
     set listaMoedas(value : ListaMoedas){
       this._listaMoedas = value;
     }
-    
-    definirTabela() {
-      
-      return this.getListaMoedas()
-      
-    }
 
   //Serviço de Conversão
   private _moedaBase: string = "";
