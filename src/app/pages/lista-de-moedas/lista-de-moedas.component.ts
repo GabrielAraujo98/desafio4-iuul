@@ -6,7 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MoedasService } from "../../services/moedas/moedas.service";
 import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
 import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
-import {MediaMatcher} from '@angular/cdk/layout';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 
 @Component({
