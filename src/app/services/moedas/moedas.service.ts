@@ -11,6 +11,7 @@ import { environment } from "../../../environments/environment";
 })
 
 export class MoedasService{
+  [x: string]: any;
   
   constructor(private _http: HttpClient){}
 
@@ -63,6 +64,7 @@ export class MoedasService{
   private _moedaAlvo: string = "";
   private _valorParaConverter: number = 0;
   private _resultado: number = 0;
+  private _requisicao: MoedasConversao;
 
   get moedaBase(){
     return this._moedaBase;
@@ -80,6 +82,9 @@ export class MoedasService{
     return this._resultado;
   }
 
+  get requisicao(){
+    return this._requisicao
+  }
 
   getConversaoMoedas(base: string, alvo: string, quantidade: number): Observable<MoedasConversao>{
     this._moedaBase = base;
@@ -91,6 +96,7 @@ export class MoedasService{
   resultadoDaConversao(base: string, alvo: string, quantidade: number){
     this.getConversaoMoedas(base, alvo, quantidade).subscribe(dados => {
       this._resultado = dados.conversion_result;
+      this._requisicao = dados;
       console.log(this._resultado)
     })
   }

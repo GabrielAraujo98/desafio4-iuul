@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { MoedasConversao } from '../../interface/moedas-conversao/moedas-conversao';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SotrageService {
+export class StorageService {
 
   private storage: Storage;
 
@@ -11,7 +12,7 @@ export class SotrageService {
     this.storage = window.localStorage;
   }
 
-  set(chave: string, valor: any): boolean {
+  set(chave: string, valor: MoedasConversao): boolean {
     if(this.storage){
       this.storage.setItem(chave, JSON.stringify(valor));
       return true;

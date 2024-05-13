@@ -31,9 +31,9 @@
                 </mat-form-field>
                 </div>
             </form>
-            <button mat-button (click)="converterValores($event)" class="btn botao">Converter</button>
+            <button mat-button (click)="converterValores($event);" class="btn botao">Converter</button>
             <div class="resultado">
-                <p>O resultado da conversão de {{valor}} {{alvo}} para <br/> {{base}} é de <strong>{{this.moedasService.resultado}}</strong></p>
+                <p>O resultado da conversão de {{valor}} {{alvo}} para <br/> {{base}} é de <strong><p id="resultadoRequisicao">{{this.moedasService.resultado}}</p></strong></p>
             </div>
         </div>
     </div>
