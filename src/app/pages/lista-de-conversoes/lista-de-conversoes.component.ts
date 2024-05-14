@@ -6,12 +6,13 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { HistoricoConversao } from '../../interface/historico-conversao/historico-conversao';
 import { StorageService } from '../../services/storage/storage.service';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-lista-de-conversoes',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule],
+  imports: [MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   templateUrl: './lista-de-conversoes.component.html',
   styleUrl: './lista-de-conversoes.component.css'
@@ -21,7 +22,6 @@ export class ListaDeConversoesComponent {
 
   ngOnInit(){
     this.dataSource = new MatTableDataSource<HistoricoConversao>(this._conversao);
-    this.dataSource.paginator = this.paginator;
   }
 
   constructor(public storage: StorageService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -31,8 +31,7 @@ export class ListaDeConversoesComponent {
   }
 
   displayedColumns: string[] = ["data", "hora", "valor_informado", "base", "alvo", "resultado", "taxa", "acoes"];
-  dataSource: MatTableDataSource<HistoricoConversao, MatPaginator>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  dataSource: MatTableDataSource<HistoricoConversao>;
 
   mobileQuery: MediaQueryList;
 
@@ -46,12 +45,20 @@ export class ListaDeConversoesComponent {
     if(this.conversao.length == 1){
       this.storage.clear()
       this.dataSource = new MatTableDataSource<HistoricoConversao>(undefined);
+      var botaoAbilitado = document.getElementById('enabled');
+      botaoAbilitado?.setAttribute("disabled", "true");
     }else{
       this.conversao.splice(id, 1)
       this.storage.set('Conversoes', this.conversao)
       this.dataSource = new MatTableDataSource<HistoricoConversao>(this._conversao);
-      this.dataSource.paginator = this.paginator;
     }
+  }
+
+  limparHistorico(){
+    var botaoAbilitado = document.getElementById('enabled');
+    this.storage.clear()
+    this.dataSource = new MatTableDataSource<HistoricoConversao>(undefined);
+    botaoAbilitado?.setAttribute("disabled", "true");
   }
 
 }

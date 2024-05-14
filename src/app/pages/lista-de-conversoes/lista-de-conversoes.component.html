@@ -1,7 +1,6 @@
 <div class="container tabela" [class.is-mobile]="mobileQuery.matches">
     <div class="tabela">
-    <div class="card">
-        <table mat-table [dataSource]="dataSource" class="tabela">
+        <table mat-table [dataSource]="dataSource" class="conteudo-tabela">
 
             <ng-container matColumnDef="data" class="tabela">
                 <th mat-header-cell *matHeaderCellDef class="tabela"> Data </th>
@@ -48,7 +47,11 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="tabela"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tabela"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[5, 15, 30]" [showFirstLastButtons]="mobileQuery.matches ? false : true" aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
-    </div>
+        
+        @if(this.conversao == undefined){
+            <button mat-flat-button color="primary" (click)="limparHistorico()" disabled id="disabled">Limpar Histórico</button>
+        }@else{
+            <button mat-flat-button color="primary" (click)="limparHistorico()" id="enabled">Limpar Histórico</button>
+        }
     </div>
 </div>
