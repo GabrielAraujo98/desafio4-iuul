@@ -7,9 +7,9 @@ import { ListaDeMoedasComponent } from "../lista-de-moedas/lista-de-moedas.compo
 import { MoedasService } from '../../services/moedas/moedas.service';
 import { ListaMoedas } from '../../interface/lista-moedas/lista-moedas';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { TabelasMoedas } from '../../interface/tabelas-moedas/tabelas-moedas';
 import { StorageService } from "../../services/storage/storage.service";
 import { CommonModule } from '@angular/common';
+import { HistoricoConversao } from "../../interface/historico-conversao/historico-conversao";
 
 @Component({
   selector: 'app-conversor-monetario',
@@ -49,14 +49,23 @@ export class ConversorMonetarioComponent implements OnInit{
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+
+  _historicoConversao : HistoricoConversao;
     
   converterValores(e: any){
     e.stopPropagation();
     e.preventDefault();
     this.moedasService.resultadoDaConversao(this.base, this.alvo, this.valor);
+    var data: Date = new Date();
     setTimeout(() => {
-        this.storage.set(`Conversoes`, this.moedasService.requisicao);
+        this.criarObjHistorico(this.base, this.alvo, this.moedasService.taxaConversao, this.moedasService.resultado, this.valor, data, data);
+        this.storage.set(`Conversoes`, this._historicoConversao);
     }, 1000)
+    console.log(data);
+  }
+
+  criarObjHistorico(base: string, alvo: string, taxa: number, resultado: number, valor_informado: number, data: Date, hora: Date){
+    this._historicoConversao = {'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora}
   }
   
   atualizarBase(value : string){

@@ -65,6 +65,7 @@ export class MoedasService{
   private _valorParaConverter: number = 0;
   private _resultado: number = 0;
   private _requisicao: MoedasConversao;
+  private _taxaConversao: number;
 
   get moedaBase(){
     return this._moedaBase;
@@ -83,13 +84,18 @@ export class MoedasService{
   }
 
   get requisicao(){
-    return this._requisicao
+    return this._requisicao;
+  }
+
+  get taxaConversao(){
+    return this._taxaConversao;
   }
 
   getConversaoMoedas(base: string, alvo: string, quantidade: number): Observable<MoedasConversao>{
     this._moedaBase = base;
     this._moedaAlvo = alvo;
     this._valorParaConverter = quantidade;
+    
     return this.http.get<MoedasConversao>(`${environment.url}/${environment.apiKey}/pair/${base}/${alvo}/${quantidade}`)
   }
 
@@ -97,6 +103,7 @@ export class MoedasService{
     this.getConversaoMoedas(base, alvo, quantidade).subscribe(dados => {
       this._resultado = dados.conversion_result;
       this._requisicao = dados;
+      this._taxaConversao = this.requisicao.conversion_rate;
       console.log(this._resultado)
     })
   }

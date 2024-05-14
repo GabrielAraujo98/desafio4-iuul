@@ -55,22 +55,10 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
   }
 
   criarObjetoDaTabela(chave: string[], valor: number[]){
-    var tabela : TabelasMoedas[] = [];
-    if(this._tabelaMoedas.length <= 1){
-      for(var m = 0; m < this._moedas.length; m++){
-        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
-      }
-      tabela = this._tabelaMoedas;
-      console.log("this._tabelaMoedas nao tinha informacao");
-    }else{
       this._tabelaMoedas = [];
       for(var m = 0; m < this._moedas.length; m++){
         this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
       }
-      tabela = this._tabelaMoedas
-      console.log("this._tabelaMoedas ja tinha informacao");
-    }
-    return tabela;
   }
 
   mobileQuery: MediaQueryList;

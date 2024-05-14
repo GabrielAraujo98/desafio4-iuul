@@ -12,7 +12,7 @@ export class StorageService {
     this.storage = window.localStorage;
   }
 
-  set(chave: string, valor: MoedasConversao): boolean {
+  set(chave: string, valor: any): boolean {
     if(this.storage){
       this.storage.setItem(chave, JSON.stringify(valor));
       return true;
