@@ -50,22 +50,25 @@ export class ConversorMonetarioComponent implements OnInit{
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  _historicoConversao : HistoricoConversao;
+  _historicoConversao : HistoricoConversao[] = [];
     
   converterValores(e: any){
     e.stopPropagation();
     e.preventDefault();
     this.moedasService.resultadoDaConversao(this.base, this.alvo, this.valor);
     var data: Date = new Date();
-    setTimeout(() => {
+      setTimeout(() => {
+        var historico = this.storage.get('Conversoes');
+        this._historicoConversao = historico;
         this.criarObjHistorico(this.base, this.alvo, this.moedasService.taxaConversao, this.moedasService.resultado, this.valor, data, data);
         this.storage.set(`Conversoes`, this._historicoConversao);
     }, 1000)
+    
     console.log(data);
   }
 
   criarObjHistorico(base: string, alvo: string, taxa: number, resultado: number, valor_informado: number, data: Date, hora: Date){
-    this._historicoConversao = {'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora}
+    this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora})
   }
   
   atualizarBase(value : string){
