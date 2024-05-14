@@ -1,6 +1,5 @@
 <div class="container tabela" [class.is-mobile]="mobileQuery.matches">
     <div class="tabela">
-    <div class="card">
         <table mat-table [dataSource]="dataSource" class="tabela">
 
             <ng-container matColumnDef="moeda" class="tabela">
@@ -10,13 +9,12 @@
             
             <ng-container matColumnDef="valor" class="tabela">
                 <th mat-header-cell *matHeaderCellDef class="tabela"> Valor </th>
-                <td mat-cell *matCellDef="let element" class="tabela"> {{element.valor}} </td>
+                <td mat-cell *matCellDef="let element" class="tabela"> {{element.valor.toFixed(2)}} </td>
             </ng-container>
             
             <tr mat-header-row *matHeaderRowDef="displayedColumns" class="tabela"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="tabela"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[5, 15, 30]" [showFirstLastButtons]="mobileQuery.matches ? false : true" aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
-    </div>
+        <mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons aria-label="Select page of Conversion Rates" class="pagination"></mat-paginator>
     </div>
 </div>

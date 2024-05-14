@@ -7,12 +7,13 @@ import { HistoricoConversao } from '../../interface/historico-conversao/historic
 import { StorageService } from '../../services/storage/storage.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @Component({
   selector: 'app-lista-de-conversoes',
   standalone: true,
-  imports: [MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
+  imports: [MatButtonModule, MatBadgeModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   templateUrl: './lista-de-conversoes.component.html',
   styleUrl: './lista-de-conversoes.component.css'
@@ -61,4 +62,8 @@ export class ListaDeConversoesComponent {
     botaoAbilitado?.setAttribute("disabled", "true");
   }
 
+  definirVisibilidadeDestaque(){
+    var valorParaDestacar = document.querySelector(".resultado");
+    valorParaDestacar?.setAttribute("mat-badge", "1");
+  }
 }

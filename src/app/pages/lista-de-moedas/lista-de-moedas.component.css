@@ -3,7 +3,6 @@
 }
 .container{
     margin-top: 44px;
-    color: #064098;
     margin-bottom: 44px;
 }
 
@@ -18,11 +17,8 @@
 
 .tabela{
     border-radius: 0px 20px 0px 0px;
-    background-color: #fff;
-    color: #064098;
 }
 
 .pagination{
     border-radius: 0px 0px 0px 0px;
-    color: #064098;
 }
