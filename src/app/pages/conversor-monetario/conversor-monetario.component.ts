@@ -59,16 +59,25 @@ export class ConversorMonetarioComponent implements OnInit{
     var data: Date = new Date();
       setTimeout(() => {
         var historico = this.storage.get('Conversoes');
-        this._historicoConversao = historico;
-        this.criarObjHistorico(this.base, this.alvo, this.moedasService.taxaConversao, this.moedasService.resultado, this.valor, data, data);
+        if(historico){
+          this._historicoConversao = historico;
+          this.criarObjHistorico(this.base, this.alvo, this.moedasService.taxaConversao, this.moedasService.resultado, this.valor, data, data, 'Deletar');
+        }else{
+          this.criarObjHistorico(this.base, this.alvo, this.moedasService.taxaConversao, this.moedasService.resultado, this.valor, data, data, 'Deletar');
+        }
         this.storage.set(`Conversoes`, this._historicoConversao);
     }, 1000)
     
     console.log(data);
   }
 
-  criarObjHistorico(base: string, alvo: string, taxa: number, resultado: number, valor_informado: number, data: Date, hora: Date){
-    this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora})
+  criarObjHistorico(base: string, alvo: string, taxa: number, resultado: number, valor_informado: number, data: Date, hora: Date, acoes: string){
+    var id : number = this._historicoConversao.length;
+    if(id < 0){
+      this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora, 'acoes': acoes, 'id': 0})
+    }else{
+       this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora, 'acoes': 'Deletar', 'id': id})
+    }
   }
   
   atualizarBase(value : string){
