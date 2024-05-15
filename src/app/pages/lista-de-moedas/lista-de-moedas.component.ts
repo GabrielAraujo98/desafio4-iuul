@@ -7,12 +7,14 @@ import { MoedasService } from "../../services/moedas/moedas.service";
 import { TabelasMoedas } from './../../interface/tabelas-moedas/tabelas-moedas';
 import { ListaMoedas } from './../../interface/lista-moedas/lista-moedas';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-lista-de-moedas',
   standalone: true,
-  imports: [HttpClientModule, MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule],
+  imports: [HttpClientModule, MatInputModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginator, MatPaginatorModule],
   templateUrl: './lista-de-moedas.component.html',
   styleUrl: './lista-de-moedas.component.css'
 })
@@ -69,5 +71,10 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
     this.mobileQuery = media.matchMedia('(max-width: 1000px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  applyFilter($event: KeyboardEvent) {
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -10,20 +10,21 @@ import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from "../../components/dialog/dialog.component";
+import { MatInputModule } from '@angular/material/input';
 
 
 
 @Component({
   selector: 'app-lista-de-conversoes',
   standalone: true,
-  imports: [MatButtonModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
+  imports: [MatButtonModule, MatInputModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   templateUrl: './lista-de-conversoes.component.html',
   styleUrl: './lista-de-conversoes.component.css'
 })
 export class ListaDeConversoesComponent {
+  
   private _conversao: HistoricoConversao[] = this.storage.get('Conversoes');
-  //numero: number = 23;
 
   ngOnInit(){
     this.dataSource = new MatTableDataSource<HistoricoConversao>(this._conversao);
@@ -46,12 +47,14 @@ export class ListaDeConversoesComponent {
     return this._conversao
   }
 
+  applyFilter($event: KeyboardEvent) {
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   openDialog(id: number) {
     this.dialog.open(DialogComponent);
     console.log(this.conversao[id].id);
-    //console.log(this.numero)
-    // this.numero = id
-    // console.log(this.numero)
   }
 
   removerConversao(idAlvo: number){
