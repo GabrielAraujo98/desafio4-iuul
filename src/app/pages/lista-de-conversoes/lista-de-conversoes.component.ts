@@ -54,7 +54,6 @@ export class ListaDeConversoesComponent {
 
   openDialog(id: number) {
     var dialog = this.dialog.open(DialogComponent);
-    // console.log(this.conversao[id].id, dialog.componentInstance.idAlvo);
     dialog.componentInstance.yesClicked.subscribe(() => this.removerConversao(id));
   }
 
@@ -69,6 +68,11 @@ export class ListaDeConversoesComponent {
       this.storage.set('Conversoes', this.conversao)
       this.dataSource = new MatTableDataSource<HistoricoConversao>(this._conversao);
     }
+  }
+
+  abrirDialogLimparTudo(){
+    var dialog = this.dialog.open(DialogComponent);
+    dialog.componentInstance.yesClicked.subscribe(() => this.limparHistorico());
   }
 
   limparHistorico(){

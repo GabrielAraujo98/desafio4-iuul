@@ -59,9 +59,9 @@
         </table>
         
         @if(this.conversao == undefined){
-            <button mat-flat-button color="primary" (click)="limparHistorico()" disabled id="disabled">Limpar Histórico</button>
+            <button mat-flat-button color="primary" (click)="abrirDialogLimparTudo()" disabled id="disabled">Limpar Histórico</button>
         }@else{
-            <button mat-flat-button color="primary" (click)="limparHistorico()" id="enabled">Limpar Histórico</button>
+            <button mat-flat-button color="primary" (click)="abrirDialogLimparTudo()" id="enabled">Limpar Histórico</button>
         }
     </div>
 
