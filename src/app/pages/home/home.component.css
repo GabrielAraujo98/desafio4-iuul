@@ -9,6 +9,13 @@
     right: 0;
     text-align: center;
     align-items: center;
+    margin-bottom: 80px;
+}
+
+.btn{
+    background-color: #3F50B5;
+    color: #fff;
+    border-radius: 0px 0px 20px 20px;
 }
 
 .card{
@@ -20,10 +27,6 @@
     filter: hue-rotate(90deg); 
     max-width: 500px;
     margin: auto;
-}
-
-.card-footer{
-    border-radius: 0px 0px 20px 20px;
 }
 
 .is-mobile .container {

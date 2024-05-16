@@ -11,13 +11,12 @@ import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-lista-de-conversoes',
   standalone: true,
-  imports: [MatButtonModule, MatInputModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule, DialogComponent],
+  imports: [MatButtonModule, MatInputModule, ScrollingModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule, DialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   templateUrl: './lista-de-conversoes.component.html',
   styleUrl: './lista-de-conversoes.component.css'

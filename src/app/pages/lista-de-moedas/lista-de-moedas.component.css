@@ -1,9 +1,10 @@
 .lista{ 
     z-index: 0;
+    
 }
 .container{
     margin-top: 44px;
-    margin-bottom: 44px;
+    margin-bottom: 80px;
 }
 
 .card{

@@ -8,14 +8,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppComponent } from "../../app.component";
 import { ListaDeMoedasComponent } from "../../pages/lista-de-moedas/lista-de-moedas.component";
-
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
     selector: 'app-header',
     standalone: true,
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
-    imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, AppComponent, ListaDeMoedasComponent]
+    imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, AppComponent, ListaDeMoedasComponent, FooterComponent]
 })
 export class HeaderComponent{
 

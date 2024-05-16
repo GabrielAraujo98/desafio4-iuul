@@ -1,7 +1,8 @@
 .container{
-    margin-top: 44px;
-    margin-bottom: 44px;
+  margin-top: 44px;
+  margin-bottom: 80px;
 }
-.dialog{
-    z-index: 3;
+.viewport{
+  height: 60vh;
+  width: 100%;
 }

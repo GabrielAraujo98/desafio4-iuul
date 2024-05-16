@@ -1,10 +1,11 @@
 import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

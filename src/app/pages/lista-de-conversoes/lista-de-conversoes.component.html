@@ -1,63 +1,68 @@
-<div class="container tabela" [class.is-mobile]="mobileQuery.matches">
-    <div class="tabela">
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+    <div>
         <mat-form-field>
             <mat-label><mat-icon>signal_wifi_4_bar</mat-icon> Filtrar</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. BRL" #input>
         </mat-form-field>
 
-        <table mat-table [dataSource]="dataSource" class="conteudo-tabela">
-
-            <ng-container matColumnDef="data">
-                <th mat-header-cell *matHeaderCellDef> Data </th>
-                <td mat-cell *matCellDef="let element">{{element.data.substring(0,10)}}</td>
-            </ng-container>
+        <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="100" class="viewport">
             
-            <ng-container matColumnDef="hora">
-                <th mat-header-cell *matHeaderCellDef> Hora </th>
-                <td mat-cell *matCellDef="let element">{{element.hora.substring(11,16)}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="valor_informado">
-                <th mat-header-cell *matHeaderCellDef> Valor </th>
-                <td mat-cell *matCellDef="let element">{{element.valor_informado}}</td>
+            <table mat-table [dataSource]="dataSource" class="conteudo-tabela" bassHorizontalScroll>
                 
-            </ng-container>
-
-            <ng-container matColumnDef="base">
-                <th mat-header-cell *matHeaderCellDef> Base </th>
-                <td mat-cell *matCellDef="let element">{{element.base}}</td>
-            </ng-container>
+                
+                <ng-container matColumnDef="data">
+                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                    <td mat-cell *matCellDef="let element">{{element.data.substring(0,10)}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="hora">
+                    <th mat-header-cell *matHeaderCellDef> Hora </th>
+                    <td mat-cell *matCellDef="let element">{{element.hora.substring(11,16)}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="valor_informado">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element">{{element.valor_informado}}</td>
+                    
+                </ng-container>
+                
+                <ng-container matColumnDef="base">
+                    <th mat-header-cell *matHeaderCellDef> Base </th>
+                    <td mat-cell *matCellDef="let element">{{element.base}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="alvo">
+                    <th mat-header-cell *matHeaderCellDef> Alvo </th>
+                    <td mat-cell *matCellDef="let element">{{element.alvo}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="resultado">
+                    <th mat-header-cell *matHeaderCellDef> Resultado </th>
+                    <td mat-cell *matCellDef="let element" class="resultado">{{element.resultado.toFixed(2)}}
+                        @if(element.resultado >= 1000){
+                            <span matBadge="$" matBadgeColor="accent" matBadgeOverlap="false"></span>
+                        }
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="taxa">
+                    <th mat-header-cell *matHeaderCellDef> Taxa </th>
+                    <td mat-cell *matCellDef="let element">{{element.taxa.toFixed(2)}}</td>
+                </ng-container>
+                
+                <ng-container matColumnDef="acoes">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-mini-fab color="primary" (click)="openDialog(element.id)" [id]="element.id"><mat-icon>delete</mat-icon></button>
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+            </table>
             
-            <ng-container matColumnDef="alvo">
-                <th mat-header-cell *matHeaderCellDef> Alvo </th>
-                <td mat-cell *matCellDef="let element">{{element.alvo}}</td>
-            </ng-container>
+    </cdk-virtual-scroll-viewport>
 
-            <ng-container matColumnDef="resultado">
-                <th mat-header-cell *matHeaderCellDef> Resultado </th>
-                <td mat-cell *matCellDef="let element" class="resultado">{{element.resultado.toFixed(2)}}
-                    @if(element.resultado >= 1000){
-                        <span matBadge="$" matBadgeColor="accent" matBadgeOverlap="false"></span>
-                    }
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="taxa">
-                <th mat-header-cell *matHeaderCellDef> Taxa </th>
-                <td mat-cell *matCellDef="let element">{{element.taxa.toFixed(2)}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="acoes">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element"> 
-                    <button mat-mini-fab color="primary" (click)="openDialog(element.id)" [id]="element.id"><mat-icon>delete</mat-icon></button>
-                </td>
-            </ng-container>
-            
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
-        </table>
-        
         @if(this.conversao == undefined){
             <button mat-flat-button color="primary" (click)="abrirDialogLimparTudo()" disabled id="disabled">Limpar Histórico</button>
         }@else{
