@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DialogComponent } from './../../components/dialog/dialog.component';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -9,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from "../../components/dialog/dialog.component";
 import { MatInputModule } from '@angular/material/input';
 
 
@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-lista-de-conversoes',
   standalone: true,
-  imports: [MatButtonModule, MatInputModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule],
+  imports: [MatButtonModule, MatInputModule, MatBadgeModule, MatDialogModule, MatTableModule, MatPaginator, MatPaginatorModule, MatIconModule, CommonModule, DialogComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   templateUrl: './lista-de-conversoes.component.html',
   styleUrl: './lista-de-conversoes.component.css'
@@ -53,12 +53,12 @@ export class ListaDeConversoesComponent {
   }
 
   openDialog(id: number) {
-    this.dialog.open(DialogComponent);
-    console.log(this.conversao[id].id);
+    var dialog = this.dialog.open(DialogComponent);
+    // console.log(this.conversao[id].id, dialog.componentInstance.idAlvo);
+    dialog.componentInstance.yesClicked.subscribe(() => this.removerConversao(id));
   }
 
   removerConversao(idAlvo: number){
-    
     if(this.conversao.length == 1){
       this.storage.clear()
       this.dataSource = new MatTableDataSource<HistoricoConversao>(undefined);

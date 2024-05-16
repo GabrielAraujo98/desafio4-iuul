@@ -2,3 +2,6 @@
     margin-top: 44px;
     margin-bottom: 44px;
 }
+.dialog{
+    z-index: 3;
+}

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MoedasConversao } from '../../interface/moedas-conversao/moedas-conversao';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,18 @@ export class StorageService {
   private storage: Storage;
 
   constructor() { 
-    this.storage = window.localStorage;
+    const win: any = typeof window === 'undefined' ? {} : window;
+    this.storage = win.localStorage;
+  }
+
+  getNextId(): number{
+    const currentId = this.get('currentId');
+    if(currentId === null){
+      this.set('currentId', 0);
+      return 0;
+    }
+    this.set('currentId', currentId+1);
+    return currentId+1
   }
 
   set(chave: string, valor: any): boolean {

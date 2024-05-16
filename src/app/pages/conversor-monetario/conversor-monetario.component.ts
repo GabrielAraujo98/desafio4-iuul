@@ -70,14 +70,15 @@ export class ConversorMonetarioComponent implements OnInit{
     
     console.log(data);
   }
+  
+  ultimoId: number;
+
+  ids : number[] = [0];
 
   criarObjHistorico(base: string, alvo: string, taxa: number, resultado: number, valor_informado: number, data: Date, hora: Date, acoes: string){
-    var id : number = this._historicoConversao.length;
-    if(id < 0){
-      this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora, 'acoes': acoes, 'id': 0})
-    }else{
-       this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora, 'acoes': 'Deletar', 'id': id})
-    }
+
+      this._historicoConversao.push({'base': base, 'alvo': alvo, 'taxa': taxa, 'resultado': resultado, 'valor_informado': valor_informado, 'data': data, 'hora': hora, 'acoes': acoes, 'id': this.storage.getNextId()})
+      
   }
   
   atualizarBase(value : string){
