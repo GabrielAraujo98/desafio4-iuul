@@ -21,8 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
   
   private _listaMoedas: ListaMoedas;
-  private _moedas: string[];
-  private _rate: number[];
+  private _moedas: string[] = [];
+  private _nome: string[] = [];
   private _tabelaMoedas: TabelasMoedas[] = [];
 
   get tabelaMoedas(){
@@ -32,7 +32,7 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
     return this._moedas
   }
 
-  displayedColumns: string[] = ['moeda', 'valor'];
+  displayedColumns: string[] = ['moeda', 'nome'];
   dataSource: MatTableDataSource<TabelasMoedas, MatPaginator>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
     
@@ -41,10 +41,16 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
     this.moedasService.getListaMoedas().subscribe(dados =>{
       this._listaMoedas = dados;
 
-      this._moedas = Object.keys(this._listaMoedas.conversion_rates);
-      this._rate = Object.values(this._listaMoedas.conversion_rates);
+      for(var i = 0; i < this._listaMoedas.supported_codes.length; i++){
+        console.log(this._listaMoedas.supported_codes[i][0]);
+        console.log(this._listaMoedas.supported_codes[i][1]);
+        
+        
+        this._moedas.push(this._listaMoedas.supported_codes[i][0]);
+        this._nome.push(this._listaMoedas.supported_codes[i][1]);
+      }
 
-      this.criarObjetoDaTabela(this._moedas, this._rate);
+      this.criarObjetoDaTabela(this._moedas, this._nome);
       this.dataSource = new MatTableDataSource<TabelasMoedas>(this._tabelaMoedas);
       this.dataSource.paginator = this.paginator;
       console.log("OnInit");
@@ -56,10 +62,10 @@ export class ListaDeMoedasComponent implements OnInit, AfterViewInit{
     console.log("ngAfterViewInit");
   }
 
-  criarObjetoDaTabela(chave: string[], valor: number[]){
+  criarObjetoDaTabela(chave: string[], nome: string[]){
       this._tabelaMoedas = [];
       for(var m = 0; m < this._moedas.length; m++){
-        this._tabelaMoedas.push({"moeda": chave[m], "valor": valor[m]});
+        this._tabelaMoedas.push({"moeda": chave[m], "nome": nome[m]});
       }
   }
 

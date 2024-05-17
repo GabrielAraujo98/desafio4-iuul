@@ -20,7 +20,7 @@ export class MoedasService{
   }
 
   getListaMoedas() : Observable<ListaMoedas>{
-    return this.http.get<ListaMoedas>(`${environment.url}/${environment.apiKey}/latest/USD`)
+    return this.http.get<ListaMoedas>(`${environment.url}/${environment.apiKey}/codes`)
   }
 
     private _moedas: string[] = [];
@@ -31,13 +31,10 @@ export class MoedasService{
       "result": "success",
       "documentation": "https://www.exchangerate-api.com/docs",
       "terms_of_use": "https://www.exchangerate-api.com/terms",
-      "time_last_update_unix": 1714608001,
-      "time_last_update_utc": "Thu, 02 May 2024 00:00:01 +0000",
-      "base_code": "USD",
-      "conversion_rates": {}
+      "supported_codes": []
     };
 
-    displayedColumns: string[] = ['moeda', 'valor'];
+    displayedColumns: string[] = ['codigo', 'moeda'];
     
     get listaMoedas(){
       return this._listaMoedas;

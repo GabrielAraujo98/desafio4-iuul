@@ -34,7 +34,9 @@ export class ConversorMonetarioComponent implements OnInit{
     }else{
       this.moedasService.getListaMoedas().subscribe(dados =>{
         this.listaMoedas = dados;
-        this.moedas = Object.keys(this.listaMoedas.conversion_rates);
+        for(var i = 0; i < this.listaMoedas.supported_codes.length; i++){
+        this.moedas.push(this.listaMoedas.supported_codes[i][0]);
+        }
         console.log('deu certo');
       });
     }   

@@ -1,4 +1,4 @@
 export interface TabelasMoedas {
     "moeda" : string,
-    "valor" : number
+    "nome" : string
 }
